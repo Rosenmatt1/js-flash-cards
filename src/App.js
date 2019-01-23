@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Card from './Components/Card.js'
-import data from './data.js'
+import data from './data.json'
 
 class App extends Component {
   constructor () {
@@ -17,20 +17,19 @@ class App extends Component {
         tags: [],
         link: "",
         data: data
-
       }
   }
 
-  componentDidMount() {
-    // fetch("http://localhost:3000/data")
-    fetch("./data.json")
+  // componentDidMount() {
+  //   fetch("http://localhost:3000/data")
+  //   fetch("./data.json")
 
-      .then(data => data.json())
-      .then(JSONdata => {
-        console.log(JSONdata)
-        this.setState({ flashcards: JSONdata.data.flashcards })
-      })
-  }
+  //     .then(data => data.json())
+  //     .then(JSONdata => {
+  //       console.log(JSONdata)
+  //       this.setState({ flashcards: JSONdata.data.flashcards })
+  //     })
+  // }
 
   flashCard = (e) => {
     e.preventDefault()
