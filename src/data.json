@@ -1,5 +1,5 @@
 { 
-  "flashcards": [
+  "methods": [
   {
     "id": 1,
     "name": ".map",
