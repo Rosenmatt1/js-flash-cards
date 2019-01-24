@@ -31,16 +31,21 @@ class App extends Component {
 
   flashCard = (e) => {
     e.preventDefault()
-    console.log("Botton was clicked")
-    console.log(this.state.flashcards.methods[0].name)
     this.setState({
-      name: this.state.flashcards.methods[0].name,
-      description: this.state.flashcards.methods[0].description,
-      example: this.state.flashcards.methods[0].example,
-      // tags: flashcards[0].tags,
-      link: this.state.flashcards.methods[0].link,
+      id: this.state.id + 1,
+      name: this.state.flashcards.methods[this.state.id].name,
+      description: this.state.flashcards.methods[this.state.id].description,
+      example: this.state.flashcards.methods[this.state.id].example,
+      tags: this.state.flashcards.methods[this.state.id].tags,
+      link: this.state.flashcards.methods[this.state.id].link,
     })
-
+    console.log(this.state.id)
+    console.log(this.state.flashcards.methods.length -1)
+    if (this.state.id === this.state.flashcards.methods.length -1) {
+      this.setState({
+        id: 0,
+      })
+    }
   }
 
   render() {
@@ -71,21 +76,7 @@ class App extends Component {
             </button>
           </div>
         </div>
-        <div className="row justify-content-center">
-
-          
-          {/* {this.state.flashcard ? <Card
-            id={this.state.id}
-            name={this.state.name}
-            description={this.state.description}
-            example={this.state.example}
-            tags={this.state.tags}
-            link={this.state.link}
-          />
-            : <div></div>} */}
-            
         </div>
-      </div>
     );
   }
 }

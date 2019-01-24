@@ -4,7 +4,8 @@ import '../App.css';
 
 const Card = (props) => {
   return (
-    <div className="card col-sm-4 mx-2 my-2">
+    <div className="row justify-content-center">
+    <div className="card col-lg-8 mx-2 my-2">
       <div className="card-body">
         <h3 className="card-title">Name: {props.name}</h3>
         <h5 className="card-text">Description: {props.description}</h5>
@@ -12,6 +13,7 @@ const Card = (props) => {
         <h5 className="card-text">Tags: {props.tags}</h5>
         <h5 className="card-text">Link: {props.link}</h5>
       </div>
+    </div>
     </div>
   )
 }
