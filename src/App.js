@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Card from './Components/Card.js'
-// import data from './data.json'
 import Guesser from './Components/Guesser'
 
 class App extends Component {
@@ -15,10 +14,10 @@ class App extends Component {
         example: "",
         tags: [],
         link: "",
+        userGuess: "",
+        guessedAnswer: false,
       }
   }
-
- 
 
   async componentDidMount() {
     const response = await fetch('http://localhost:3001/')
@@ -30,12 +29,6 @@ class App extends Component {
     e.preventDefault()
     this.setState({
       id: this.state.id + 1,
-      // name: this.state.flashcards.methods[this.state.id].name,
-      // description: this.state.flashcards.methods[this.state.id].description,
-      // example: this.state.flashcards.methods[this.state.id].example,
-      // tags: this.state.flashcards.methods[this.state.id].tags,
-      // link: this.state.flashcards.methods[this.state.id].link,
-
       name: this.state.flashcards[this.state.id].name,
       description: this.state.flashcards[this.state.id].description,
       example: this.state.flashcards[this.state.id].example,
@@ -45,6 +38,21 @@ class App extends Component {
     if (this.state.id === this.state.flashcards.length -1) {
       this.setState({
         id: 0,
+      })
+    }
+  }
+
+  guessMethod = (e) => {
+    this.setState({
+      userGuess: e.target.value
+    })
+  }
+
+  answerFunction = (e) => {
+    e.preventDefault()
+    if (this.state.userGuess === this.state.name) {
+      this.setState({
+        guessedAnswer: true,
       })
     }
   }
@@ -75,7 +83,20 @@ class App extends Component {
             >
             Click to Study
             </button>
-            <Guesser/>
+            <Guesser
+              guessMethod={this.guessMethod}
+              answerFunction={this.answerFunction}
+            />
+
+            {/* {!this.state.guessedAnswer ? <p>Guess a Method!</p> 
+            : this.state.userGuess !== this.state.name
+            ? <p>Sorry try again</p>
+            :<p>You are Correct!</p> } */}
+
+            {this.state.guessedAnswer ? <p>You are correct</p> : <p>Sorry try again</p>
+            
+            }
+
           </div>
         </div>
         </div>
