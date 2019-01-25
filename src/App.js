@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import Card from './Components/Card.js'
 import data from './data.json'
@@ -39,8 +38,6 @@ class App extends Component {
       tags: this.state.flashcards.methods[this.state.id].tags,
       link: this.state.flashcards.methods[this.state.id].link,
     })
-    console.log(this.state.id)
-    console.log(this.state.flashcards.methods.length -1)
     if (this.state.id === this.state.flashcards.methods.length -1) {
       this.setState({
         id: 0,
