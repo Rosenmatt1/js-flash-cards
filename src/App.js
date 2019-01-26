@@ -2,27 +2,35 @@ import React, { Component } from 'react';
 import './App.css';
 import Card from './Components/Card.js'
 import Guesser from './Components/Guesser'
+import AddNewCard from './Components/AddNewCard'
 
 class App extends Component {
-  constructor () {
+  constructor() {
     super()
-      this.state = {
-        flashcards: {},
-        id: 0,
-        name: "",
-        description: "",
-        example: "",
-        tags: [],
-        link: "",
-        userGuess: "",
-        guessedAnswer: false,
-      }
+    this.state = {
+      flashcards: {},
+      flashcard: "",
+      id: 0,
+      name: "",
+      description: "",
+      example: "",
+      tags: [],
+      link: "",
+      userGuess: "",
+      guessedAnswer: false,
+      displayForm: false,
+    }
   }
 
   async componentDidMount() {
     const response = await fetch('http://localhost:3001/')
     const json = await response.json()
-    this.setState({ flashcards: json })
+    let addSelected = json.map(card => {
+      card.current = false
+      
+      return card
+    })
+    this.setState({ flashcards: addSelected })
   }
 
   flashCard = (e) => {
@@ -34,8 +42,9 @@ class App extends Component {
       example: this.state.flashcards[this.state.id].example,
       tags: this.state.flashcards[this.state.id].tags,
       link: this.state.flashcards[this.state.id].link,
+      flashcard: this.state.flashcards[this.state.id]
     })
-    if (this.state.id === this.state.flashcards.length -1) {
+    if (this.state.id === this.state.flashcards.length - 1) {
       this.setState({
         id: 0,
       })
@@ -50,15 +59,38 @@ class App extends Component {
 
   answerFunction = (e) => {
     e.preventDefault()
-    if (this.state.userGuess === this.state.name) {
-      this.setState({
-        guessedAnswer: true,
-      })
-    }
+    if (this.state.name === this.state.userGuess)
+    this.setState({
+      guessedAnswer: true,
+      userGuess: "",
+    })
+  }
+
+  deleteCard = (e) => {
+    e.preventDefault()
+    console.log(e)
+    var removeCard = this.state.flashcards.filter(card => {
+      console.log(card.id)
+      if (this.state.flashcard.id === card.id)  {
+        card.current = true
+      }
+      return !card.current
+    })
+    this.setState({
+      flashcards: removeCard
+    })
+    console.log(removeCard)
+  }
+
+  addNewCard = (e) => {
+    e.preventDefault()
+    this.setState({
+      displayForm: !this.state.displayForm,
+    })
   }
 
   render() {
-    
+
 
     return (
       <div className="container-fluid">
@@ -77,29 +109,34 @@ class App extends Component {
               link={this.state.link}
             />
 
-            <button 
-              className="btn btn-danger btn-lg" 
+            <button
+              className="btn btn-danger btn-lg"
               onClick={this.flashCard}
             >
-            Click to Study
+              Click to Study
             </button>
             <Guesser
               guessMethod={this.guessMethod}
               answerFunction={this.answerFunction}
+              userGuess={this.state.userGuess}
+              deleteCard={this.deleteCard}
+              addNewCard={this.addNewCard}
             />
 
-            {/* {!this.state.guessedAnswer ? <p>Guess a Method!</p> 
-            : this.state.userGuess !== this.state.name
-            ? <p>Sorry try again</p>
-            :<p>You are Correct!</p> } */}
-
-            {this.state.guessedAnswer ? <p>You are correct</p> : <p>Sorry try again</p>
-            
+            {!this.state.guessedAnswer
+              ? <p>Please type your answer</p>
+              : <p>You are correct</p>
             }
 
+            {this.state.displayForm 
+            ? <AddNewCard 
+              />
+            : <p></p>
+          }
+            
           </div>
         </div>
-        </div>
+      </div>
     );
   }
 }
