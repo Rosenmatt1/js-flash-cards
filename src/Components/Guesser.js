@@ -7,6 +7,14 @@ const Guesser = (props) => {
     <form>
       <div className="form-group">
 
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={(e) => props.deleteCard(e)}
+        >
+          Delete Current Card
+      </button>
+
         <input
           type="text"
           className="form-control mt-3"
@@ -25,13 +33,7 @@ const Guesser = (props) => {
         Guess Method
         </button>
 
-      <button
-        type="submit"
-        className="btn btn-primary"
-        onClick={(e) => props.deleteCard(e)}
-      >
-        Delete Current Card
-      </button>
+      
 
       <button
         type="submit"
