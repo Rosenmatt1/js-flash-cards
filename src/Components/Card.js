@@ -9,7 +9,6 @@ const Card = (props) => {
         <div className="card-body">
           <h5 className="card-title">Name: {props.name}</h5>
           <h5 className="card-text">Description: {props.description}</h5>
-          <h5 className="card-text">Example: {props.example}</h5>
           <h5 className="card-text">Link: {props.link}</h5>
         </div>
       </div>

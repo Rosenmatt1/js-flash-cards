@@ -3,7 +3,6 @@ import React from 'react'
 const AddNewCard = (props) => {
 
   return (
-
     <form>
       <div className="form-group">
 
@@ -12,6 +11,7 @@ const AddNewCard = (props) => {
           type="text"
           className="form-control mt-3"
           placeholder="Enter New .NameOfMethod Here"
+          onChange={props.addName}
         >
         </input>
 
@@ -20,14 +20,7 @@ const AddNewCard = (props) => {
           type="text"
           className="form-control mt-3"
           placeholder="Enter New Description Here"
-        >
-        </input>
-
-        Example
-        <input
-          type="text"
-          className="form-control mt-3"
-          placeholder="Enter New Example Here"
+          onChange={props.addDescription}
         >
         </input>
 
@@ -36,6 +29,7 @@ const AddNewCard = (props) => {
           type="text"
           className="form-control mt-3"
           placeholder="Enter New Link Here"
+          onChange={props.addLink}
         >
         </input>
 
@@ -44,6 +38,7 @@ const AddNewCard = (props) => {
       <button
         type="submit"
         className="btn btn-primary"
+        onClick={props.addNewCard}
       >
         Add!
       </button>

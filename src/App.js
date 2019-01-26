@@ -13,12 +13,13 @@ class App extends Component {
       id: 0,
       name: "",
       description: "",
-      example: "",
-      tags: [],
       link: "",
       userGuess: "",
       guessedAnswer: false,
       displayForm: false,
+      newMethod: "",
+      newDescription: "",
+      newLink: "",
     }
   }
 
@@ -39,7 +40,6 @@ class App extends Component {
       id: this.state.id + 1,
       name: this.state.flashcards[this.state.id].name,
       description: this.state.flashcards[this.state.id].description,
-      example: this.state.flashcards[this.state.id].example,
       tags: this.state.flashcards[this.state.id].tags,
       link: this.state.flashcards[this.state.id].link,
       flashcard: this.state.flashcards[this.state.id]
@@ -82,15 +82,46 @@ class App extends Component {
     console.log(removeCard)
   }
 
-  addNewCard = (e) => {
+  addNewCardForm = (e) => {
     e.preventDefault()
     this.setState({
       displayForm: !this.state.displayForm,
     })
   }
 
-  render() {
+  addName = (e) => {
+    this.setState({
+      newMethod: e.target.value,
+    })
+  }
 
+  addDescription = (e) => {
+    this.setState({
+      newDescription: e.target.value,
+    })
+  }
+
+  addLink = (e) => {
+    this.setState({
+      newLink: e.target.value,
+    })
+  }
+
+  addNewCard = (e) => {
+    e.preventDefault()
+   var newCard = {
+     id: this.state.flashcards.length + 1,
+     newMethod: this.state.newMethod,
+     newDescription: this.state.newDescription,
+     newLink: this.state.newLink,
+   }
+   this.setState({
+     flashcards: [...this.state.flashcards, newCard]
+   })
+  }
+
+
+  render() {
 
     return (
       <div className="container-fluid">
@@ -104,7 +135,6 @@ class App extends Component {
               id={this.state.id}
               name={this.state.name}
               description={this.state.description}
-              example={this.state.example}
               tags={this.state.tags}
               link={this.state.link}
             />
@@ -120,7 +150,7 @@ class App extends Component {
               answerFunction={this.answerFunction}
               userGuess={this.state.userGuess}
               deleteCard={this.deleteCard}
-              addNewCard={this.addNewCard}
+              addNewCardForm={this.addNewCardForm}
             />
 
             {!this.state.guessedAnswer
@@ -130,6 +160,10 @@ class App extends Component {
 
             {this.state.displayForm 
             ? <AddNewCard 
+                addName={this.addName}
+                addDescription={this.addDescription}
+                addLink={this.addLink}
+                addNewCard={this.addNewCard}
               />
             : <p></p>
           }

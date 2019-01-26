@@ -36,7 +36,7 @@ const Guesser = (props) => {
       <button
         type="submit"
         className="btn btn-primary"
-        onClick={(e) => props.addNewCard(e)}
+        onClick={(e) => props.addNewCardForm(e)}
       >
         Add New Method!
       </button>
