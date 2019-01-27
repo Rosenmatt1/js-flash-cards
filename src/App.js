@@ -145,6 +145,7 @@ class App extends Component {
             >
               Click to Study
             </button>
+            
             <Guesser
               guessMethod={this.guessMethod}
               answerFunction={this.answerFunction}
