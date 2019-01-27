@@ -108,7 +108,6 @@ class App extends Component {
   }
 
   addNewCard = (e) => {
-    e.preventDefault()
    var newCard = {
      id: this.state.flashcards.length + 1,
      newMethod: this.state.newMethod,
@@ -145,7 +144,7 @@ class App extends Component {
             >
               Click to Study
             </button>
-            
+
             <Guesser
               guessMethod={this.guessMethod}
               answerFunction={this.answerFunction}
