@@ -26,12 +26,11 @@ class App extends Component {
   async componentDidMount() {
     const response = await fetch('http://localhost:3001/')
     const json = await response.json()
-    let addSelected = json.map(card => {
+    let addCurrent = json.map(card => {
       card.current = false
-      
       return card
     })
-    this.setState({ flashcards: addSelected })
+    this.setState({ flashcards: addCurrent })
   }
 
   flashCard = (e) => {
@@ -108,6 +107,7 @@ class App extends Component {
   }
 
   addNewCard = (e) => {
+    e.preventDefault()
    var newCard = {
      id: this.state.flashcards.length + 1,
      newMethod: this.state.newMethod,
@@ -115,7 +115,8 @@ class App extends Component {
      newLink: this.state.newLink,
    }
    this.setState({
-     flashcards: [...this.state.flashcards, newCard]
+     flashcards: [...this.state.flashcards, newCard],
+     displayForm: false
    })
   }
 
