@@ -39,7 +39,6 @@ class App extends Component {
       id: this.state.id + 1,
       name: this.state.flashcards[this.state.id].name,
       description: this.state.flashcards[this.state.id].description,
-      tags: this.state.flashcards[this.state.id].tags,
       link: this.state.flashcards[this.state.id].link,
       flashcard: this.state.flashcards[this.state.id]
     })
@@ -67,18 +66,28 @@ class App extends Component {
 
   deleteCard = (e) => {
     e.preventDefault()
-    console.log(e)
     var removeCard = this.state.flashcards.filter(card => {
-      console.log(card.id)
       if (this.state.flashcard.id === card.id)  {
         card.current = true
       }
       return !card.current
     })
-    this.setState({
-      flashcards: removeCard
+    fetch('http://localhost:3001/flashcards', {
+      method: 'POST',
+      body: JSON.stringify(removeCard),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
     })
-    console.log(removeCard)
+      .then(res => res.json())
+      .then(flashcards => {
+        this.setState({
+          flashcards: removeCard,
+          displayForm: false
+        })
+        return flashcards
+      })
   }
 
   addNewCardForm = (e) => {
@@ -129,7 +138,6 @@ class App extends Component {
           flashcards: [...this.state.flashcards, flashcards],
           displayForm: false
         })
-        console.log(flashcards)
         return flashcards
       })
   }
