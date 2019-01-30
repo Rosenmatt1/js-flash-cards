@@ -3,6 +3,8 @@ import './App.css';
 import Card from './Components/Card.js'
 import Guesser from './Components/Guesser'
 import AddNewCard from './Components/AddNewCard'
+import EditCard from './Components/EditCard'
+
 
 class App extends Component {
   constructor() {
@@ -64,31 +66,31 @@ class App extends Component {
     })
   }
 
-  deleteCard = (e) => {
-    e.preventDefault()
-    var removeCard = this.state.flashcards.filter(card => {
-      if (this.state.flashcard.id === card.id)  {
-        card.current = true
-      }
-      return !card.current
-    })
-    fetch('http://localhost:3001/flashcards', {
-      method: 'POST',
-      body: JSON.stringify(removeCard),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }
-    })
-      .then(res => res.json())
-      .then(flashcards => {
-        this.setState({
-          flashcards: removeCard,
-          displayForm: false
-        })
-        return flashcards
-      })
-  }
+  // deleteCard = (e) => {
+  //   e.preventDefault()
+  //   var removeCard = this.state.flashcards.filter(card => {
+  //     if (this.state.flashcard.id === card.id)  {
+  //       card.current = true
+  //     }
+  //     return !card.current
+  //   })
+  //   fetch('http://localhost:3001/flashcards', {
+  //     method: 'DELETE',
+  //     body: JSON.stringify(removeCard),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //     }
+  //   })
+  //     .then(res => res.json())
+  //     .then(flashcards => {
+  //       this.setState({
+  //         flashcards: removeCard,
+  //         displayForm: false
+  //       })
+  //       return flashcards
+  //     })
+  // }
 
   addNewCardForm = (e) => {
     e.preventDefault()
@@ -142,6 +144,10 @@ class App extends Component {
       })
   }
 
+  editCurrentCard = () => {
+
+  }
+
 
   render() {
 
@@ -157,7 +163,6 @@ class App extends Component {
               id={this.state.id}
               name={this.state.name}
               description={this.state.description}
-              tags={this.state.tags}
               link={this.state.link}
             />
 
@@ -167,6 +172,14 @@ class App extends Component {
             >
               Click to Study
             </button>
+
+            <EditCard 
+              id={this.state.id}
+              name={this.state.name}
+              description={this.state.description}
+              link={this.state.link}
+              editCurrentCard={this.editCurrentCard}
+            />
 
             <Guesser
               guessMethod={this.guessMethod}
