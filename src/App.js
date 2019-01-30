@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch('http://localhost:3001/')
+    const response = await fetch('http://localhost:3001/flashcards')
     const json = await response.json()
     let addCurrent = json.map(card => {
       card.current = false
@@ -106,18 +106,45 @@ class App extends Component {
     })
   }
 
+  // addNewCard = (e) => {
+  //   e.preventDefault()
+  //  var newCard = {
+  //    id: this.state.flashcards.length + 1,
+  //    newMethod: this.state.newMethod,
+  //    newDescription: this.state.newDescription,
+  //    newLink: this.state.newLink,
+  //  }
+  //  this.setState({
+  //    flashcards: [...this.state.flashcards, newCard],
+  //    displayForm: false
+  //  })
+  // }
+
   addNewCard = (e) => {
     e.preventDefault()
-   var newCard = {
-     id: this.state.flashcards.length + 1,
-     newMethod: this.state.newMethod,
-     newDescription: this.state.newDescription,
-     newLink: this.state.newLink,
-   }
-   this.setState({
-     flashcards: [...this.state.flashcards, newCard],
-     displayForm: false
-   })
+    var newCard = {
+      id: this.state.flashcards.length + 1,
+      newMethod: this.state.newMethod,
+      newDescription: this.state.newDescription,
+      newLink: this.state.newLink,
+    }
+    fetch('http://localhost:3001/flashcards', {
+      method: 'POST',
+      body: JSON.stringify(newCard),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    })
+      .then(res => res.json())
+      .then(flashcards => {
+        console.log(flashcards)
+        this.setState({
+          flashcards: [...this.state.flashcards, flashcards],
+          displayForm: false
+        })
+        return flashcards
+      })
   }
 
 

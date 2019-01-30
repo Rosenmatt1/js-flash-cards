@@ -38,7 +38,7 @@ const AddNewCard = (props) => {
       <button
         type="submit"
         className="btn btn-primary"
-        onClick={props.addNewCard}
+        onClick={(e) => props.addNewCard(e)}
       >
         Add!
       </button>
