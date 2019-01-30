@@ -5,7 +5,6 @@ import Guesser from './Components/Guesser'
 import AddNewCard from './Components/AddNewCard'
 import EditCard from './Components/EditCard'
 
-
 class App extends Component {
   constructor() {
     super()
@@ -26,7 +25,9 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch('http://localhost:3001/flashcards')
+    // const response = await fetch('http://localhost:3001/flashcards')
+    const response = await fetch('https://jsflashcards.herokuapp.com/')
+
     const json = await response.json()
     let addCurrent = json.map(card => {
       card.current = false
@@ -125,7 +126,7 @@ class App extends Component {
       description: this.state.newDescription,
       link: this.state.newLink,
     }
-    fetch('http://localhost:3001/flashcards', {
+    fetch('https://jsflashcards.herokuapp.com/flashcards/', {
       method: 'POST',
       body: JSON.stringify(newCard),
       headers: {
