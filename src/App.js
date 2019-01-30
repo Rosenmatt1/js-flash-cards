@@ -106,27 +106,13 @@ class App extends Component {
     })
   }
 
-  // addNewCard = (e) => {
-  //   e.preventDefault()
-  //  var newCard = {
-  //    id: this.state.flashcards.length + 1,
-  //    newMethod: this.state.newMethod,
-  //    newDescription: this.state.newDescription,
-  //    newLink: this.state.newLink,
-  //  }
-  //  this.setState({
-  //    flashcards: [...this.state.flashcards, newCard],
-  //    displayForm: false
-  //  })
-  // }
-
   addNewCard = (e) => {
     e.preventDefault()
     var newCard = {
       id: this.state.flashcards.length + 1,
-      newMethod: this.state.newMethod,
-      newDescription: this.state.newDescription,
-      newLink: this.state.newLink,
+      name: this.state.newMethod,
+      description: this.state.newDescription,
+      link: this.state.newLink,
     }
     fetch('http://localhost:3001/flashcards', {
       method: 'POST',
@@ -143,6 +129,7 @@ class App extends Component {
           flashcards: [...this.state.flashcards, flashcards],
           displayForm: false
         })
+        console.log(flashcards)
         return flashcards
       })
   }
