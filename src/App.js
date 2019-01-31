@@ -22,7 +22,8 @@ class App extends Component {
       newMethod: "",
       newDescription: "",
       newLink: "",
-      edit: false
+      edit: false,
+      guessedCorrect: 0
     }
   }
 
@@ -65,6 +66,7 @@ class App extends Component {
       this.setState({
         guessedAnswer: true,
         userGuess: "",
+        guessedCorrect: this.state.guessedCorrect + 1
       })
   }
 
@@ -207,6 +209,8 @@ class App extends Component {
                 addDescription={this.addDescription}
                 addLink={this.addLink}
                 saveChanges={this.saveChanges}
+                flashcards={this.state.flashcards}
+                guessedCorrect={this.state.guessedCorrect}
               />
               : <div></div>}
 
