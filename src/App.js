@@ -4,6 +4,7 @@ import Card from './Components/Card.js'
 import Guesser from './Components/Guesser'
 import AddNewCard from './Components/AddNewCard'
 import EditCard from './Components/EditCard'
+import ProgressBar from './Components/ProgressBar'
 
 class App extends Component {
   constructor() {
@@ -171,6 +172,8 @@ class App extends Component {
           <div className="col-8 text-center">
             <h1 className="pb-2">JS FLashCards</h1>
             <p className="pb-2">Learning JS just got easy!</p>
+
+            <ProgressBar />
 
             <Card
               flashcards={this.state.flashcards}
