@@ -21,11 +21,11 @@ class App extends Component {
       newMethod: "",
       newDescription: "",
       newLink: "",
+      edit: false
     }
   }
 
   async componentDidMount() {
-    // const response = await fetch('http://localhost:3001/flashcards')
     const response = await fetch('https://jsflashcards.herokuapp.com/')
 
     const json = await response.json()
@@ -61,10 +61,10 @@ class App extends Component {
   answerFunction = (e) => {
     e.preventDefault()
     if (this.state.name === this.state.userGuess)
-    this.setState({
-      guessedAnswer: true,
-      userGuess: "",
-    })
+      this.setState({
+        guessedAnswer: true,
+        userGuess: "",
+      })
   }
 
   // deleteCard = (e) => {
@@ -145,8 +145,21 @@ class App extends Component {
       })
   }
 
-  editCurrentCard = () => {
+  editCurrentCard = (e) => {
+    e.preventDefault()
+    this.setState({
+      edit: !this.state.edit
+    })
+  }
 
+  saveChanges = (e) => {
+    e.preventDefault()
+    this.setState({
+      name: this.state.newMethod,
+      description: this.state.newDescription,
+      link: this.state.newLink,
+      edit: false
+    })
   }
 
 
@@ -174,13 +187,25 @@ class App extends Component {
               Click to Study
             </button>
 
-            <EditCard 
-              id={this.state.id}
-              name={this.state.name}
-              description={this.state.description}
-              link={this.state.link}
-              editCurrentCard={this.editCurrentCard}
-            />
+            <button
+              className="btn btn-danger btn-lg"
+              onClick={this.editCurrentCard}
+            >
+              Edit Card
+            </button>
+
+            {this.state.edit
+              ? <EditCard
+                id={this.state.id}
+                name={this.state.name}
+                description={this.state.description}
+                link={this.state.link}
+                addName={this.addName}
+                addDescription={this.addDescription}
+                addLink={this.addLink}
+                saveChanges={this.saveChanges}
+              />
+              : <div></div>}
 
             <Guesser
               guessMethod={this.guessMethod}
@@ -195,16 +220,16 @@ class App extends Component {
               : <p>You are correct</p>
             }
 
-            {this.state.displayForm 
-            ? <AddNewCard 
+            {this.state.displayForm
+              ? <AddNewCard
                 addName={this.addName}
                 addDescription={this.addDescription}
                 addLink={this.addLink}
                 addNewCard={this.addNewCard}
               />
-            : <p></p>
-          }
-            
+              : <p></p>
+            }
+
           </div>
         </div>
       </div>

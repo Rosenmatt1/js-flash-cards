@@ -11,8 +11,8 @@ const EditCard = (props) => {
           type="text"
           className="form-control mt-3"
           placeholder="Enter New .NameOfMethod Here"
-          // value={props.name}
-          // onChange={props.name}
+          // default value={props.name}
+          onChange={props.addName}
         >
         </input>
 
@@ -21,8 +21,8 @@ const EditCard = (props) => {
           type="text"
           className="form-control mt-3"
           placeholder="Enter New Description Here"
-          // value={props.description}
-          // onChange={props.description}
+          // default value={props.description}
+          onChange={props.addDescription}
         >
         </input>
 
@@ -31,8 +31,8 @@ const EditCard = (props) => {
           type="text"
           className="form-control mt-3"
           placeholder="Enter New Link Here"
-          // value={props.link}
-          // onChange={props.link}
+          // default value={props.link}
+          onChange={props.addLink}
         >
         </input>
 
@@ -41,9 +41,9 @@ const EditCard = (props) => {
       <button
         type="submit"
         className="btn btn-primary"
-        // onClick={(e) => props.editCurrentCard(e)}
+        onClick={(e) => props.saveChanges(e)}
       >
-        Edit!
+        Save Edit!
       </button>
 
     </form>
