@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch('https://jsflashcards.herokuapp.com/')
+    const response = await fetch('http://localhost:3001/flashcards')
 
     const json = await response.json()
     let addCurrent = json.map(card => {
@@ -129,7 +129,7 @@ class App extends Component {
       description: this.state.newDescription,
       link: this.state.newLink,
     }
-    fetch('https://jsflashcards.herokuapp.com/flashcards/', {
+    fetch('http://localhost:3001/flashcards', {
       method: 'POST',
       body: JSON.stringify(newCard),
       headers: {
@@ -150,20 +150,61 @@ class App extends Component {
 
   editCurrentCard = (e) => {
     e.preventDefault()
-    this.setState({
-      edit: !this.state.edit
-    })
+    if (this.state.id > 0)
+      this.setState({
+        edit: !this.state.edit,
+      })
   }
 
-  saveChanges = (e) => {
+  // update = (e) => {
+  //   e.preventDefault()
+  //   const updateDescription = this.state.methods
+  //   updateDescription[this.state.index].description = e.target[0].value
+  //   this.setState({
+  //     methods: updateDescription,
+  //     updateDescription: false
+  //   })
+  //   this.updateCard(e.target[0].value)
+  //   e.target.reset()
+  // }
+
+  saveChanges = async (e) => {
     e.preventDefault()
-    this.setState({
+    // const allFlashCards = this.state.flashcards
+    // allFlashCards[this.state.id].name = this.state.newMethod
+    // allFlashCards[this.state.id].description = this.state.newDescription
+    // allFlashCards[this.state.id].link = this.state.newLink
+
+    // console.log(allFlashCards)
+
+    const editedFlash = {
       name: this.state.newMethod,
       description: this.state.newDescription,
-      link: this.state.newLink,
+      link: this.state.newLink
+    }
+
+    const mappedCards = this.state.flashcards.map(card => {
+      if (this.state.flashcard.id === card.id) {
+        return editedFlash
+      }
+      return card
+    })
+
+    await fetch(`http://localhost:3001/flashcards/${this.state.flashcard.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(editedFlash),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    })
+    this.setState({
+      flashcards: mappedCards,
       edit: false
     })
+  
   }
+
 
 
   render() {
