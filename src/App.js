@@ -47,9 +47,9 @@ class App extends Component {
       link: this.state.flashcards[this.state.id].link,
       flashcard: this.state.flashcards[this.state.id]
     })
-    if (this.state.flashcard.id === this.state.flashcards.length - 1) {
+    if (this.state.id + 1 === this.state.flashcards.length) {
       this.setState({
-        id: 0,
+        id: 0
       })
     }
   }
@@ -70,31 +70,31 @@ class App extends Component {
       })
   }
 
-  // deleteCard = (e) => {
-  //   e.preventDefault()
-  //   var removeCard = this.state.flashcards.filter(card => {
-  //     if (this.state.flashcard.id === card.id)  {
-  //       card.current = true
-  //     }
-  //     return !card.current
-  //   })
-  //   fetch('http://localhost:3001/flashcards', {
-  //     method: 'DELETE',
-  //     body: JSON.stringify(removeCard),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //     }
-  //   })
-  //     .then(res => res.json())
-  //     .then(flashcards => {
-  //       this.setState({
-  //         flashcards: removeCard,
-  //         displayForm: false
-  //       })
-  //       return flashcards
-  //     })
-  // }
+  deleteCard = (e) => {
+    e.preventDefault()
+    var removeCard = this.state.flashcards.filter(card => {
+      if (this.state.flashcard.id === card.id)  {
+        card.current = true
+      }
+      return !card.current
+    })
+    fetch('http://localhost:3001/flashcards', {
+      method: 'DELETE',
+      body: JSON.stringify(removeCard),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    })
+      .then(res => res.json())
+      .then(flashcards => {
+        this.setState({
+          flashcards: removeCard,
+          displayForm: false
+        })
+        return flashcards
+      })
+  }
 
   addNewCardForm = (e) => {
     e.preventDefault()
@@ -142,7 +142,8 @@ class App extends Component {
         console.log(flashcards)
         this.setState({
           flashcards: [...this.state.flashcards, newCard],
-          displayForm: false
+          displayForm: false,
+          id: this.state.flashcards.length + 1
         })
         return flashcards
       })
@@ -156,17 +157,6 @@ class App extends Component {
       })
   }
 
-  // update = (e) => {
-  //   e.preventDefault()
-  //   const updateDescription = this.state.methods
-  //   updateDescription[this.state.index].description = e.target[0].value
-  //   this.setState({
-  //     methods: updateDescription,
-  //     updateDescription: false
-  //   })
-  //   this.updateCard(e.target[0].value)
-  //   e.target.reset()
-  // }
 
   saveChanges = async (e) => {
     e.preventDefault()
