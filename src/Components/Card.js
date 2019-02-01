@@ -6,9 +6,9 @@ const Card = (props) => {
     <div className="row justify-content-center">
       <div className="card col-lg-8 mx-2 my-2">
         <div className="card-body">
-          <h5 className="card-title">Name: {props.name}</h5>
-          <h5 className="card-text">Description: {props.description}</h5>
-          <h5 className="card-text">Link: {props.link}</h5>
+          <h5 className="card-title">Name: {props.flashcards[props.index].name}</h5>
+          <h5 className="card-text">Description: {props.flashcards[props.index].description}</h5>
+          <h5 className="card-text">Link: {props.flashcards[props.index].link}</h5>
         </div>
       </div>
     </div>

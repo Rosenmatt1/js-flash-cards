@@ -2,12 +2,13 @@ import React from 'react'
 
 const ProgressBar = (props) => {
 
+  var calculate = (props.guessedCorrect / props.flashcards.length) * 100
+
   var style = {
-    width: "25%",
-    height: "20%"
+    width: `${calculate}%`
   }
 
-  // var calculate = (props.guessedCorrect /props.flashcards.length) * 100
+  
   // console.log(calculate)
 
   return (
@@ -17,10 +18,10 @@ const ProgressBar = (props) => {
         className="progress-bar" 
         role="progressbar" 
         style={style}
-      aria-valuenow="25" 
-      aria-valuemin="0" 
-      aria-valuemax="100">
-      {/* {calculate} */}
+        aria-valuenow={`${calculate}%`}
+        aria-valuemin="0" 
+        aria-valuemax="100">
+        {calculate}
       </div>
     </div>
   

@@ -11,7 +11,7 @@ class App extends Component {
     super()
     this.state = {
       flashcards: [],
-      flashcard: "",
+      // flashcard: "",
       index: 0,
       name: "",
       description: "",
@@ -38,19 +38,13 @@ class App extends Component {
     this.setState({ flashcards: addCurrent })
   }
 
-  flashCard = (e) => {
-    e.preventDefault()
-    this.setState({
-      index: this.state.flashcards[this.state.index].id,
-      name: this.state.flashcards[this.state.index].name,
-      description: this.state.flashcards[this.state.index].description,
-      link: this.state.flashcards[this.state.index].link,
-      flashcard: this.state.flashcards[this.state.index]
-    })
-    if (this.state.index + 1 === this.state.flashcards.length) {
-      this.setState({
-        index: 0
-      })
+  flashCard = () => {
+   if (this.state.index !== this.state.flashcards.length -1) {
+     this.setState({ index: this.state.index + 1 })
+   }
+    
+  if (this.state.index === this.state.flashcards.length -1) {
+      this.setState({ index: 0 })
     }
   }
 
@@ -62,7 +56,7 @@ class App extends Component {
 
   answerFunction = (e) => {
     e.preventDefault()
-    if (this.state.name === this.state.userGuess)
+    if (this.state.flashcards[this.state.index].name === this.state.userGuess)
       this.setState({
         guessedAnswer: true,
         userGuess: "",
@@ -204,15 +198,22 @@ class App extends Component {
             <h1 className="pb-2">JS FLashCards</h1>
             <p className="pb-2">Learning JS just got easy!</p>
 
-            <ProgressBar />
-
-            <Card
+            <ProgressBar 
+              guessedCorrect={this.state.guessedCorrect}
               flashcards={this.state.flashcards}
-              id={this.state.id}
-              name={this.state.name}
-              description={this.state.description}
-              link={this.state.link}
-            />
+                />
+
+
+            {this.state.flashcards[0]
+              ? <Card
+                  flashcards={this.state.flashcards}
+                  id={this.state.id}
+                  name={this.state.name}
+                  description={this.state.description}
+                  link={this.state.link}
+                  index={this.state.index}
+                />
+              :<div></div>}
 
             <button
               className="btn btn-danger btn-lg"
