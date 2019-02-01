@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       flashcards: [],
       flashcard: "",
-      id: 0,
+      index: 0,
       name: "",
       description: "",
       link: "",
@@ -41,15 +41,15 @@ class App extends Component {
   flashCard = (e) => {
     e.preventDefault()
     this.setState({
-      id: this.state.id + 1,
-      name: this.state.flashcards[this.state.id].name,
-      description: this.state.flashcards[this.state.id].description,
-      link: this.state.flashcards[this.state.id].link,
-      flashcard: this.state.flashcards[this.state.id]
+      index: this.state.flashcards[this.state.index].id,
+      name: this.state.flashcards[this.state.index].name,
+      description: this.state.flashcards[this.state.index].description,
+      link: this.state.flashcards[this.state.index].link,
+      flashcard: this.state.flashcards[this.state.index]
     })
-    if (this.state.flashcard.id + 1 === this.state.flashcards.length) {
+    if (this.state.index + 1 === this.state.flashcards.length) {
       this.setState({
-        id: 0
+        index: 1
       })
     }
   }
@@ -70,15 +70,22 @@ class App extends Component {
       })
   }
 
-  deleteCard = (e) => {
+  deleteCard = async (e) => {
     e.preventDefault()
-    var removeCard = this.state.flashcards.filter(card => {
-      if (this.state.flashcard.id === card.id)  {
+    const removeCard = this.state.flashcards.filter(card => {
+      if (card.id === this.state.flashcards[this.state.index].id) {
         card.current = true
       }
       return !card.current
     })
-    fetch('http://localhost:3001/flashcards', {
+
+    // if (this.state.flashcard.length - 1 === this.state.index) {
+    //   this.setState({
+    //     index: this.state.index - 1
+    //   })
+    
+    console.log(removeCard)
+    await fetch('http://localhost:3001/flashcards', {
       method: 'DELETE',
       body: JSON.stringify(removeCard),
       headers: {
@@ -86,11 +93,13 @@ class App extends Component {
         'Accept': 'application/json',
       }
     })
-        this.setState({
-          flashcards: removeCard,
-          displayForm: false
-        })
+    this.setState({
+      flashcards: removeCard,
+      displayForm: false,
+      index: this.state.index -1
+    })
   }
+
 
   addNewCardForm = (e) => {
     e.preventDefault()
@@ -117,7 +126,7 @@ class App extends Component {
     })
   }
 
-  addNewCard = (e) => {
+  addNewCard = async (e) => {
     e.preventDefault()
     var newCard = {
       id: this.state.flashcards.length + 1,
@@ -125,7 +134,7 @@ class App extends Component {
       description: this.state.newDescription,
       link: this.state.newLink,
     }
-    fetch('http://localhost:3001/flashcards', {
+    await fetch('http://localhost:3001/flashcards', {
       method: 'POST',
       body: JSON.stringify(newCard),
       headers: {
@@ -133,17 +142,18 @@ class App extends Component {
         'Accept': 'application/json',
       }
     })
-        this.setState({
-          flashcards: [...this.state.flashcards, newCard],
-          displayForm: false,
-          // id: this.state.flashcard.id
-        })
-  
+    this.setState({
+      flashcards: [...this.state.flashcards, newCard],
+      displayForm: false,
+      index: this.state.flashcards.length +1,
+      current: false
+    })
+
   }
 
   editCurrentCard = (e) => {
     e.preventDefault()
-    if (this.state.flashcard.id > 0)
+    if (this.state.index > 0)
       this.setState({
         edit: !this.state.edit,
       })
@@ -160,7 +170,7 @@ class App extends Component {
     }
 
     const mappedCards = this.state.flashcards.map(card => {
-      if (this.state.flashcard.id === card.id) {
+      if (this.state.index === card.id) {
         return editedFlash
       }
       return card
