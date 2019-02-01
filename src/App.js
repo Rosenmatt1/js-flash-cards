@@ -47,7 +47,7 @@ class App extends Component {
       link: this.state.flashcards[this.state.id].link,
       flashcard: this.state.flashcards[this.state.id]
     })
-    if (this.state.id + 1 === this.state.flashcards.length) {
+    if (this.state.flashcard.id + 1 === this.state.flashcards.length) {
       this.setState({
         id: 0
       })
@@ -86,14 +86,10 @@ class App extends Component {
         'Accept': 'application/json',
       }
     })
-      .then(res => res.json())
-      .then(flashcards => {
         this.setState({
           flashcards: removeCard,
           displayForm: false
         })
-        return flashcards
-      })
   }
 
   addNewCardForm = (e) => {
@@ -137,16 +133,12 @@ class App extends Component {
         'Accept': 'application/json',
       }
     })
-      .then(res => res.json())
-      .then(flashcards => {
-        console.log(flashcards)
         this.setState({
           flashcards: [...this.state.flashcards, newCard],
           displayForm: false,
-          id: this.state.flashcards.length + 1
+          // id: this.state.flashcard.id
         })
-        return flashcards
-      })
+  
   }
 
   editCurrentCard = (e) => {
