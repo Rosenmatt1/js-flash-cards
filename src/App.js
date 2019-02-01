@@ -49,7 +49,7 @@ class App extends Component {
     })
     if (this.state.index + 1 === this.state.flashcards.length) {
       this.setState({
-        index: 1
+        index: 0
       })
     }
   }
@@ -83,9 +83,9 @@ class App extends Component {
     //   this.setState({
     //     index: this.state.index - 1
     //   })
+    // }
     
-    console.log(removeCard)
-    await fetch('http://localhost:3001/flashcards', {
+    await fetch(`http://localhost:3001/flashcards${this.state.flashcards[this.state.index].id}`, {
       method: 'DELETE',
       body: JSON.stringify(removeCard),
       headers: {
@@ -129,7 +129,7 @@ class App extends Component {
   addNewCard = async (e) => {
     e.preventDefault()
     var newCard = {
-      id: this.state.flashcards.length + 1,
+      id: this.state.flashcards.length,
       name: this.state.newMethod,
       description: this.state.newDescription,
       link: this.state.newLink,
@@ -145,7 +145,7 @@ class App extends Component {
     this.setState({
       flashcards: [...this.state.flashcards, newCard],
       displayForm: false,
-      index: this.state.flashcards.length +1,
+      // index: this.state.flashcards.length -1,
       current: false
     })
 
@@ -166,7 +166,6 @@ class App extends Component {
       name: this.state.newMethod,
       description: this.state.newDescription,
       link: this.state.newLink,
-      // id: this.state.flashcard.id
     }
 
     const mappedCards = this.state.flashcards.map(card => {
@@ -176,7 +175,7 @@ class App extends Component {
       return card
     })
 
-    await fetch(`http://localhost:3001/flashcards/${this.state.flashcard.id}`, {
+    await fetch(`http://localhost:3001/flashcards/${this.state.flashcards[this.state.index].id}`, {
       method: 'PUT',
       body: JSON.stringify(editedFlash),
       headers: {
