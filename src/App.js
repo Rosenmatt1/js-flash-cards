@@ -11,11 +11,7 @@ class App extends Component {
     super()
     this.state = {
       flashcards: [],
-      // flashcard: "",
       index: 0,
-      name: "",
-      description: "",
-      link: "",
       userGuess: "",
       guessedAnswer: false,
       displayForm: false,
@@ -39,13 +35,8 @@ class App extends Component {
   }
 
   flashCard = () => {
-   if (this.state.index !== this.state.flashcards.length -1) {
-     this.setState({ index: this.state.index + 1 })
-   }
-    
-  if (this.state.index === this.state.flashcards.length -1) {
-      this.setState({ index: 0 })
-    }
+    if (this.state.index !== this.state.flashcards.length - 1) this.setState({ index: this.state.index + 1 })
+    if (this.state.index === this.state.flashcards.length - 1) this.setState({ index: 0 })
   }
 
   guessMethod = (e) => {
@@ -78,7 +69,6 @@ class App extends Component {
     //     index: this.state.index - 1
     //   })
     // }
-    
     await fetch(`http://localhost:3001/flashcards${this.state.flashcards[this.state.index].id}`, {
       method: 'DELETE',
       body: JSON.stringify(removeCard),
@@ -90,10 +80,9 @@ class App extends Component {
     this.setState({
       flashcards: removeCard,
       displayForm: false,
-      index: this.state.index -1
+      index: this.state.index - 1
     })
   }
-
 
   addNewCardForm = (e) => {
     e.preventDefault()
@@ -147,10 +136,7 @@ class App extends Component {
 
   editCurrentCard = (e) => {
     e.preventDefault()
-    if (this.state.index > 0)
-      this.setState({
-        edit: !this.state.edit,
-      })
+      this.setState({edit: !this.state.edit})
   }
 
 
@@ -188,7 +174,6 @@ class App extends Component {
   }
 
 
-
   render() {
 
     return (
@@ -198,22 +183,20 @@ class App extends Component {
             <h1 className="pb-2">JS FLashCards</h1>
             <p className="pb-2">Learning JS just got easy!</p>
 
-            <ProgressBar 
+            <ProgressBar
               guessedCorrect={this.state.guessedCorrect}
               flashcards={this.state.flashcards}
-                />
-
+            />
 
             {this.state.flashcards[0]
               ? <Card
-                  flashcards={this.state.flashcards}
-                  id={this.state.id}
-                  name={this.state.name}
-                  description={this.state.description}
-                  link={this.state.link}
-                  index={this.state.index}
-                />
-              :<div></div>}
+                flashcards={this.state.flashcards}
+                name={this.state.name}
+                description={this.state.description}
+                link={this.state.link}
+                index={this.state.index}
+              />
+              : <div></div>}
 
             <button
               className="btn btn-danger btn-lg"
@@ -231,10 +214,9 @@ class App extends Component {
 
             {this.state.edit
               ? <EditCard
-                id={this.state.id}
-                name={this.state.name}
-                description={this.state.description}
-                link={this.state.link}
+                // name={this.state.name}
+                // description={this.state.description}
+                // link={this.state.link}
                 addName={this.addName}
                 addDescription={this.addDescription}
                 addLink={this.addLink}
@@ -266,7 +248,6 @@ class App extends Component {
               />
               : <p></p>
             }
-
           </div>
         </div>
       </div>

@@ -2,17 +2,13 @@ import React from 'react'
 
 const ProgressBar = (props) => {
 
-  var calculate = (props.guessedCorrect / props.flashcards.length) * 100
+  const calculate = (props.guessedCorrect / props.flashcards.length) * 100
 
-  var style = {
+  const style = {
     width: `${calculate}%`
   }
 
-  
-  // console.log(calculate)
-
   return (
-   
     <div className="progress">
       <div 
         className="progress-bar" 
@@ -24,8 +20,6 @@ const ProgressBar = (props) => {
         {calculate}
       </div>
     </div>
-  
-    
   ) 
 }
 
