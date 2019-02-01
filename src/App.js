@@ -10,7 +10,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      flashcards: {},
+      flashcards: [],
       flashcard: "",
       id: 0,
       name: "",
@@ -47,7 +47,7 @@ class App extends Component {
       link: this.state.flashcards[this.state.id].link,
       flashcard: this.state.flashcards[this.state.id]
     })
-    if (this.state.id === this.state.flashcards.length - 1) {
+    if (this.state.flashcard.id === this.state.flashcards.length - 1) {
       this.setState({
         id: 0,
       })
@@ -141,7 +141,7 @@ class App extends Component {
       .then(flashcards => {
         console.log(flashcards)
         this.setState({
-          flashcards: [...this.state.flashcards, flashcards],
+          flashcards: [...this.state.flashcards, newCard],
           displayForm: false
         })
         return flashcards
@@ -150,7 +150,7 @@ class App extends Component {
 
   editCurrentCard = (e) => {
     e.preventDefault()
-    if (this.state.id > 0)
+    if (this.state.flashcard.id > 0)
       this.setState({
         edit: !this.state.edit,
       })
@@ -170,17 +170,11 @@ class App extends Component {
 
   saveChanges = async (e) => {
     e.preventDefault()
-    // const allFlashCards = this.state.flashcards
-    // allFlashCards[this.state.id].name = this.state.newMethod
-    // allFlashCards[this.state.id].description = this.state.newDescription
-    // allFlashCards[this.state.id].link = this.state.newLink
-
-    // console.log(allFlashCards)
-
     const editedFlash = {
       name: this.state.newMethod,
       description: this.state.newDescription,
-      link: this.state.newLink
+      link: this.state.newLink,
+      // id: this.state.flashcard.id
     }
 
     const mappedCards = this.state.flashcards.map(card => {
@@ -199,10 +193,13 @@ class App extends Component {
       }
     })
     this.setState({
+      name: this.state.newMethod,
+      description: this.state.newDescription,
+      link: this.state.newLink,
       flashcards: mappedCards,
-      edit: false
+      edit: false,
+      id: this.state.flashcard.id
     })
-  
   }
 
 
