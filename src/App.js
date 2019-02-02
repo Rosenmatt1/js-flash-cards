@@ -40,9 +40,7 @@ class App extends Component {
   }
 
   guessMethod = (e) => {
-    this.setState({
-      userGuess: e.target.value
-    })
+    this.setState({ userGuess: e.target.value })
   }
 
   answerFunction = (e) => {
@@ -82,25 +80,14 @@ class App extends Component {
 
   addNewCardForm = (e) => {
     e.preventDefault()
-    this.setState({ displayForm: !this.state.displayForm,})}
-
-  addName = (e) => {
-    this.setState({
-      newMethod: e.target.value,
-    })
+    this.setState({ displayForm: !this.state.displayForm })
   }
 
-  addDescription = (e) => {
-    this.setState({
-      newDescription: e.target.value,
-    })
-  }
+  addName = (e) => this.setState({ newMethod: e.target.value })
 
-  addLink = (e) => {
-    this.setState({
-      newLink: e.target.value,
-    })
-  }
+  addDescription = (e) => this.setState({ newDescription: e.target.value })
+
+  addLink = (e) => this.setState({ newLink: e.target.value })
 
   addNewCard = async (e) => {
     e.preventDefault()
@@ -159,9 +146,6 @@ class App extends Component {
       }
     })
     this.setState({
-      // name: this.state.newMethod,
-      // description: this.state.newDescription,
-      // link: this.state.newLink,
       flashcards: mappedCards,
       edit: false,
     })
