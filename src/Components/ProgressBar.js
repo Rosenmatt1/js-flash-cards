@@ -17,7 +17,7 @@ const ProgressBar = (props) => {
         aria-valuenow={`${calculate}%`}
         aria-valuemin="0" 
         aria-valuemax="100">
-        {calculate}
+        {calculate}%
       </div>
     </div>
   ) 

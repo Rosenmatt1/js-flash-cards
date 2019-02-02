@@ -37,6 +37,7 @@ class App extends Component {
   flashCard = () => {
     if (this.state.index !== this.state.flashcards.length - 1) this.setState({ index: this.state.index + 1 })
     if (this.state.index === this.state.flashcards.length - 1) this.setState({ index: 0 })
+    this.setState({ guessedAnswer: false })
   }
 
   guessMethod = (e) => {
@@ -61,9 +62,6 @@ class App extends Component {
       }
       return !card.current
     })
-
-    // if (this.state.flashcards.length - 1 === this.state.index) this.setState({ index: this.state.index - 1 })
-    
     await fetch(`http://localhost:3001/flashcards/${this.state.flashcards[this.state.index].id}`, {
       method: 'DELETE',
       body: JSON.stringify(removeCard),
@@ -75,7 +73,7 @@ class App extends Component {
     this.setState({
       flashcards: removeCard,
       displayForm: false,
-      index: this.state.index -1
+      index: this.state.index - 1
     })
   }
 
@@ -116,9 +114,8 @@ class App extends Component {
 
   editCurrentCard = (e) => {
     e.preventDefault()
-      this.setState({edit: !this.state.edit})
+    this.setState({ edit: !this.state.edit })
   }
-
 
   saveChanges = async (e) => {
     e.preventDefault()
@@ -128,7 +125,6 @@ class App extends Component {
       description: this.state.newDescription,
       name: this.state.newMethod
     }
-
     const mappedCards = this.state.flashcards.map(card => {
       if (this.state.flashcards[this.state.index].id === card.id) {
         this.state.flashcards[this.state.index].name = this.state.newMethod
@@ -137,7 +133,6 @@ class App extends Component {
       }
       return card
     })
-
     await fetch(`http://localhost:3001/flashcards/${this.state.flashcards[this.state.index].id}`, {
       method: 'PUT',
       body: JSON.stringify(editedFlash),
@@ -169,16 +164,16 @@ class App extends Component {
 
             {this.state.flashcards[0]
               ? <Card
-                flashcards={this.state.flashcards}
-                name={this.state.name}
-                description={this.state.description}
-                link={this.state.link}
-                index={this.state.index}
+                  flashcards={this.state.flashcards}
+                  name={this.state.name}
+                  description={this.state.description}
+                  link={this.state.link}
+                  index={this.state.index}
               />
               : <div></div>}
 
             <button
-              className="btn btn-danger btn-lg"
+              className="btn btn-danger btn-lg mx-1"
               onClick={this.flashCard}
             >
               Click to Study
@@ -208,12 +203,8 @@ class App extends Component {
               userGuess={this.state.userGuess}
               deleteCard={this.deleteCard}
               addNewCardForm={this.addNewCardForm}
+              guessedAnswer={this.state.guessedAnswer}
             />
-
-            {!this.state.guessedAnswer
-              ? <p>Please type your answer</p>
-              : <p>You are correct</p>
-            }
 
             {this.state.displayForm
               ? <AddNewCard

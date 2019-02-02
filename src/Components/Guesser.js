@@ -9,7 +9,7 @@ const Guesser = (props) => {
 
         <button
           type="submit"
-          className="btn btn-primary my-1"
+          className="btn btn-primary my-1 mb-3"
           onClick={(e) => props.deleteCard(e)}
         >
           Delete Current Card
@@ -17,31 +17,46 @@ const Guesser = (props) => {
 
         <input
           type="text"
-          className="form-control mt-3"
+          className="form-control"
           placeholder="Enter .NameOfMethod Here"
           onChange={(e) => props.guessMethod(e)}
           value={props.userGuess}
         >
         </input>
       </div>
-      
-      <button
-        type="submit"
-        className="btn btn-danger btn-lg mx-2"
-        onClick={(e) => props.answerFunction(e)}
-      >
-        Guess Method
+
+      {!props.guessedAnswer
+      ?
+        <button
+          type="submit"
+          className="btn btn-danger btn-lg"
+          onClick={(e) => props.answerFunction(e)}
+        >
+          Guess the Method
         </button>
-    <br></br>
+      :
+        <button
+          type="submit"
+          className="btn btn-success btn-lg"
+          onClick={(e) => props.answerFunction(e)}
+        >
+          Correct!
+        </button>
+      }
+
       
+
+
+      <br></br>
 
       <button
         type="submit"
-        className="btn btn-primary mx-2 my-2"
+        className="btn btn-primary my-2"
         onClick={(e) => props.addNewCardForm(e)}
       >
         Add New Method!
       </button>
+
     </form>
   )
 }
