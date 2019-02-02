@@ -64,11 +64,8 @@ class App extends Component {
       return !card.current
     })
 
-    // if (this.state.flashcard.length - 1 === this.state.index) {
-    //   this.setState({
-    //     index: this.state.index - 1
-    //   })
-    // }
+    if (this.state.flashcards.length - 1 === this.state.index) this.setState({ index: this.state.index - 1 })
+    
     await fetch(`http://localhost:3001/flashcards${this.state.flashcards[this.state.index].id}`, {
       method: 'DELETE',
       body: JSON.stringify(removeCard),
@@ -80,16 +77,12 @@ class App extends Component {
     this.setState({
       flashcards: removeCard,
       displayForm: false,
-      index: this.state.index - 1
     })
   }
 
   addNewCardForm = (e) => {
     e.preventDefault()
-    this.setState({
-      displayForm: !this.state.displayForm,
-    })
-  }
+    this.setState({ displayForm: !this.state.displayForm,})}
 
   addName = (e) => {
     this.setState({
@@ -112,10 +105,10 @@ class App extends Component {
   addNewCard = async (e) => {
     e.preventDefault()
     var newCard = {
-      id: this.state.flashcards.length,
+      id: this.state.flashcards.length + 1,
       name: this.state.newMethod,
       description: this.state.newDescription,
-      link: this.state.newLink,
+      link: this.state.newLink
     }
     await fetch('http://localhost:3001/flashcards', {
       method: 'POST',
@@ -128,10 +121,9 @@ class App extends Component {
     this.setState({
       flashcards: [...this.state.flashcards, newCard],
       displayForm: false,
-      // index: this.state.flashcards.length -1,
+      index: this.state.index + 1,
       current: false
     })
-
   }
 
   editCurrentCard = (e) => {
@@ -143,14 +135,17 @@ class App extends Component {
   saveChanges = async (e) => {
     e.preventDefault()
     const editedFlash = {
-      name: this.state.newMethod,
-      description: this.state.newDescription,
+      id: this.state.flashcards[this.state.index].id,
       link: this.state.newLink,
+      description: this.state.newDescription,
+      name: this.state.newMethod
     }
 
     const mappedCards = this.state.flashcards.map(card => {
-      if (this.state.index === card.id) {
-        return editedFlash
+      if (this.state.flashcards[this.state.index].id === card.id) {
+        this.state.flashcards[this.state.index].name = this.state.newMethod
+        this.state.flashcards[this.state.index].description = this.state.newDescription
+        this.state.flashcards[this.state.index].link = this.state.newLink
       }
       return card
     })
@@ -164,12 +159,11 @@ class App extends Component {
       }
     })
     this.setState({
-      name: this.state.newMethod,
-      description: this.state.newDescription,
-      link: this.state.newLink,
+      // name: this.state.newMethod,
+      // description: this.state.newDescription,
+      // link: this.state.newLink,
       flashcards: mappedCards,
       edit: false,
-      id: this.state.flashcard.id
     })
   }
 
