@@ -62,9 +62,9 @@ class App extends Component {
       return !card.current
     })
 
-    if (this.state.flashcards.length - 1 === this.state.index) this.setState({ index: this.state.index - 1 })
+    // if (this.state.flashcards.length - 1 === this.state.index) this.setState({ index: this.state.index - 1 })
     
-    await fetch(`http://localhost:3001/flashcards${this.state.flashcards[this.state.index].id}`, {
+    await fetch(`http://localhost:3001/flashcards/${this.state.flashcards[this.state.index].id}`, {
       method: 'DELETE',
       body: JSON.stringify(removeCard),
       headers: {
@@ -75,6 +75,7 @@ class App extends Component {
     this.setState({
       flashcards: removeCard,
       displayForm: false,
+      index: this.state.index -1
     })
   }
 
@@ -192,9 +193,6 @@ class App extends Component {
 
             {this.state.edit
               ? <EditCard
-                // name={this.state.name}
-                // description={this.state.description}
-                // link={this.state.link}
                 addName={this.addName}
                 addDescription={this.addDescription}
                 addLink={this.addLink}
