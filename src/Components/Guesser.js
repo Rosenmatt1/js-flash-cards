@@ -37,7 +37,7 @@ const Guesser = (props) => {
       :
         <button
           type="submit"
-          className="btn btn-success btn-lg"
+          className="btn btn-outline-success btn-lg"
           onClick={(e) => props.answerFunction(e)}
         >
           Correct!

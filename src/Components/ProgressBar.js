@@ -2,7 +2,7 @@ import React from 'react'
 
 const ProgressBar = (props) => {
 
-  const calculate = (props.guessedCorrect / props.flashcards.length) * 100
+  const calculate = Math.round((props.guessedCorrect / props.flashcards.length) * 100)
 
   const style = {
     width: `${calculate}%`
@@ -17,7 +17,7 @@ const ProgressBar = (props) => {
         aria-valuenow={`${calculate}%`}
         aria-valuemin="0" 
         aria-valuemax="100">
-        {calculate}%
+       {calculate}%
       </div>
     </div>
   ) 
