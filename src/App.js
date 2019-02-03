@@ -156,6 +156,10 @@ class App extends Component {
           <div className="col-8 text-center">
             <h1 className="pb-2">JS FLashCards</h1>
             <p className="pb-2">Learning JS just got easy!</p>
+            <image
+              src="javascript.png"
+              alt="javascript">
+            </image>
 
             <ProgressBar
               guessedCorrect={this.state.guessedCorrect}
@@ -164,11 +168,11 @@ class App extends Component {
 
             {this.state.flashcards[0]
               ? <Card
-                  flashcards={this.state.flashcards}
-                  name={this.state.name}
-                  description={this.state.description}
-                  link={this.state.link}
-                  index={this.state.index}
+                flashcards={this.state.flashcards}
+                name={this.state.name}
+                description={this.state.description}
+                link={this.state.link}
+                index={this.state.index}
               />
               : <div></div>}
 
