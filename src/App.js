@@ -5,6 +5,8 @@ import Guesser from './Components/Guesser'
 import AddNewCard from './Components/AddNewCard'
 import EditCard from './Components/EditCard'
 import ProgressBar from './Components/ProgressBar'
+import image from './Components/javascript1.png'
+
 
 class App extends Component {
   constructor() {
@@ -24,7 +26,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch('http://localhost:3001/flashcards')
+    const response = await fetch('https://git.heroku.com/jsflashcards.git')
 
     const json = await response.json()
     let addCurrent = json.map(card => {
@@ -62,7 +64,7 @@ class App extends Component {
       }
       return !card.current
     })
-    await fetch(`http://localhost:3001/flashcards/${this.state.flashcards[this.state.index].id}`, {
+    await fetch(`https://git.heroku.com/jsflashcards.git/${this.state.flashcards[this.state.index].id}`, {
       method: 'DELETE',
       body: JSON.stringify(removeCard),
       headers: {
@@ -96,7 +98,7 @@ class App extends Component {
       description: this.state.newDescription,
       link: this.state.newLink
     }
-    await fetch('http://localhost:3001/flashcards', {
+    await fetch('https://git.heroku.com/jsflashcards.git', {
       method: 'POST',
       body: JSON.stringify(newCard),
       headers: {
@@ -133,7 +135,7 @@ class App extends Component {
       }
       return card
     })
-    await fetch(`http://localhost:3001/flashcards/${this.state.flashcards[this.state.index].id}`, {
+    await fetch(`https://git.heroku.com/jsflashcards.git/${this.state.flashcards[this.state.index].id}`, {
       method: 'PUT',
       body: JSON.stringify(editedFlash),
       headers: {
@@ -155,11 +157,13 @@ class App extends Component {
         <div className="row justify-content-center py-5">
           <div className="col-8 text-center">
             <h1 className="pb-2">JS FLashCards</h1>
-            <p className="pb-2">Learning JS just got easy!</p>
-            <image
-              src="javascript.png"
+            <img
+              className="mb-2"
+              src={image}
               alt="javascript">
-            </image>
+            </img>
+            <p className="pb-2">Learning JS just got easy!</p>
+           
 
             <ProgressBar
               guessedCorrect={this.state.guessedCorrect}
