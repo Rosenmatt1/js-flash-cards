@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch('https://git.heroku.com/jsflashcards.git')
+    const response = await fetch('https://git.heroku.com/jsflashcards.com')
 
     const json = await response.json()
     let addCurrent = json.map(card => {
@@ -64,7 +64,7 @@ class App extends Component {
       }
       return !card.current
     })
-    await fetch(`https://git.heroku.com/jsflashcards.git/${this.state.flashcards[this.state.index].id}`, {
+    await fetch(`https://git.heroku.com/jsflashcards.com/${this.state.flashcards[this.state.index].id}`, {
       method: 'DELETE',
       body: JSON.stringify(removeCard),
       headers: {
@@ -98,7 +98,7 @@ class App extends Component {
       description: this.state.newDescription,
       link: this.state.newLink
     }
-    await fetch('https://git.heroku.com/jsflashcards.git', {
+    await fetch('https://git.heroku.com/jsflashcards.com', {
       method: 'POST',
       body: JSON.stringify(newCard),
       headers: {
@@ -135,7 +135,7 @@ class App extends Component {
       }
       return card
     })
-    await fetch(`https://git.heroku.com/jsflashcards.git/${this.state.flashcards[this.state.index].id}`, {
+    await fetch(`https://git.heroku.com/jsflashcards.com/${this.state.flashcards[this.state.index].id}`, {
       method: 'PUT',
       body: JSON.stringify(editedFlash),
       headers: {
