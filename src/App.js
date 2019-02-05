@@ -7,6 +7,8 @@ import EditCard from './Components/EditCard'
 import ProgressBar from './Components/ProgressBar'
 import image from './Components/javascript1.png'
 
+const url = "https://jsflashcards.herokuapp.com/flashcards/"
+
 
 class App extends Component {
   constructor() {
@@ -26,7 +28,9 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch('https://git.heroku.com/jsflashcards.com')
+    // const response = await fetch('https://git.heroku.com/jsflashcards.com')
+    const response = await fetch(url)
+
 
     const json = await response.json()
     let addCurrent = json.map(card => {
@@ -64,7 +68,7 @@ class App extends Component {
       }
       return !card.current
     })
-    await fetch(`https://git.heroku.com/jsflashcards.com/${this.state.flashcards[this.state.index].id}`, {
+    await fetch(`url${this.state.flashcards[this.state.index].id}`, {
       method: 'DELETE',
       body: JSON.stringify(removeCard),
       headers: {
@@ -98,7 +102,7 @@ class App extends Component {
       description: this.state.newDescription,
       link: this.state.newLink
     }
-    await fetch('https://git.heroku.com/jsflashcards.com', {
+    await fetch(url, {
       method: 'POST',
       body: JSON.stringify(newCard),
       headers: {
@@ -135,7 +139,7 @@ class App extends Component {
       }
       return card
     })
-    await fetch(`https://git.heroku.com/jsflashcards.com/${this.state.flashcards[this.state.index].id}`, {
+    await fetch(`url${this.state.flashcards[this.state.index].id}`, {
       method: 'PUT',
       body: JSON.stringify(editedFlash),
       headers: {
