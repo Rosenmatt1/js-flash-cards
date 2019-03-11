@@ -9,7 +9,6 @@ import image from './Components/javascript1.png'
 
 const url = "https://jsflashcards.herokuapp.com/flashcards/"
 
-
 class App extends Component {
   constructor() {
     super()
@@ -28,10 +27,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    // const response = await fetch('https://git.heroku.com/jsflashcards.com')
     const response = await fetch(url)
-
-
     const json = await response.json()
     let addCurrent = json.map(card => {
       card.current = false
